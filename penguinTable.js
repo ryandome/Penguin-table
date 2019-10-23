@@ -49,37 +49,62 @@ var penguinTable = function(penguins)
     {
         return penguin.final[0].grade
     })
-    addColumn(row,function(penguin)
-    {
-            //var meanTotal = function(total)
-    {
-        return d3.mean(penguin.quizes, getGrade)*.2 + d3.mean(penguin.homework, getGrade)*.15 + d3.mean(penguin.test, getGrade)*.3 + penguin.final[0].grade*.35
-    }
-    //if( meanTotal < 70)
-        //{
-          //  d3.select("total")
-           // .attr("color",red)
-        //}
-    }) 
-   // row.attr("id",totalGrade)
     
+    row.append("td")
+    .text(function(penguin)
+         {
+        
+         var tG = d3.mean(penguin.quizes, getGrade)*2 + d3.mean(penguin.homework, getGrade)*.3 + d3.mean(penguin.test, getGrade)*.3 + penguin.final[0].grade*.35
+         
+         return tG
+    
+    //.attr("class","tGrade")
+    
+    if(tG < 70)
+        {
+            row.append("td")
+            .text(function(penguin)
+            {
+                return tG
+            })
+            .attr("color","red")
+          
+        }
+    
+    })
+    
+    
+        //d3.select("td")
+        //.attr("id","tGrade")
+            
+       /* var tGrade = d3.mean(penguin.quizes, getGrade)*2 + d3.mean(penguin.homework, getGrade)*.3 + d3.mean(penguin.test, getGrade)*.3 + penguin.final[0].grade*.35
+    
+        return tGrade
+    if(tGrade < 70)
+        {
+            d3.select("td")
+            .text()
+            .attr("color","red")
+        } */
+     
+  
 }
 
 
-
+/*
 var ifGrade = function(penguin)
 {
     var meanTotal = function(total)
     {
-        return d3.mean(penguin.quizes, getGrade)*.2 + d3.mean(penguin.homework, getGrade)*.15 + d3.mean(penguin.test, getGrade)*.3 + penguin.final[0].grade*.35
+    d3.mean(penguin.quizes, getGrade)*2 + d3.mean(penguin.homework, getGrade)*.3 + d3.mean(penguin.test, getGrade)*.3 + penguin.final[0].grade*.35
     }
-    if( meanTotal < 70)
+    if(meanTotal < 70)
         {
             d3.select("meanTotal")
-            .attr("color",red)
+            row.attr("color",red)
         }
 }
-
+*/
 
 
 
