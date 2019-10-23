@@ -19,12 +19,12 @@ var penguinTable = function(penguins)
     .enter()
     .append("tr");
     
-    addColumn(row,function(penguin)
+    /*addColumn(row,function(penguin)
     {
     let penguinSelected = 0;
     for (let i = 0; i < penguin.length; i++);
     return penguinSelected++;
-    })
+    }) */
     
      row.append("td")
         .append("img")
@@ -35,14 +35,66 @@ var penguinTable = function(penguins)
     
     addColumn(row,function(penguin)
     {
-        return d3.mean(penguin.quizes, getGrade)
+        return d3.mean(penguin.quizes, getGrade)*10
     })
     addColumn(row,function(penguin)
     {
-        return d3.mean(penguin.homework, getGrade)
+        return d3.mean(penguin.homework, getGrade)*2
     })
+    addColumn(row,function(penguin)
+    {
+        return d3.mean(penguin.test, getGrade)
+    })
+    addColumn(row,function(penguin)
+    {
+        return penguin.final[0].grade
+    })
+    addColumn(row,function(penguin)
+    {
+            //var meanTotal = function(total)
+    {
+        return d3.mean(penguin.quizes, getGrade)*.2 + d3.mean(penguin.homework, getGrade)*.15 + d3.mean(penguin.test, getGrade)*.3 + penguin.final[0].grade*.35
+    }
+    //if( meanTotal < 70)
+        //{
+          //  d3.select("total")
+           // .attr("color",red)
+        //}
+    }) 
+   // row.attr("id",totalGrade)
     
-    
+}
+
+
+
+var ifGrade = function(penguin)
+{
+    var meanTotal = function(total)
+    {
+        return d3.mean(penguin.quizes, getGrade)*.2 + d3.mean(penguin.homework, getGrade)*.15 + d3.mean(penguin.test, getGrade)*.3 + penguin.final[0].grade*.35
+    }
+    if( meanTotal < 70)
+        {
+            d3.select("meanTotal")
+            .attr("color",red)
+        }
+}
+
+
+
+
+
+
+var sortGrades = function(penguin)
+{
+    d3.select("#quiz")
+    .on("click",function()
+       {
+        penguin.sort(function(a,b)
+        {
+          return a.quizes - b.quizes;  
+        })
+    })
 }
 
 
@@ -51,6 +103,8 @@ var penguinPromise = d3.json("classData.json")
 penguinPromise.then(
 function(penData)
     {
+        //ifGrade(penData);
+        //sortGrades(penData);
         penguinTable(penData)
     },
 function(err)
@@ -58,6 +112,8 @@ function(err)
       console.log("broken",err)  
     })
     
+
+
     
     
     
