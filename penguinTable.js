@@ -6,7 +6,7 @@
 
 var addColumn = function(row,fcn)
 {
-    row.append("td").text(fcn)
+    row.append("td").text(fcn) 
 }
 
 var penguinTable = function(penguins)
@@ -52,23 +52,24 @@ var penguinTable = function(penguins)
     
     row.append("td")
     .text(function(penguin)
-         {
+    {
         
          var tG = d3.mean(penguin.quizes, getGrade)*2 + d3.mean(penguin.homework, getGrade)*.3 + d3.mean(penguin.test, getGrade)*.3 + penguin.final[0].grade*.35
          
          return tG
-    
-    //.attr("class","tGrade")
-    
+    })
+    .style("color",function(penguin)
+    {
+         var tG = d3.mean(penguin.quizes, getGrade)*2 + d3.mean(penguin.homework, getGrade)*.3 + d3.mean(penguin.test, getGrade)*.3 + penguin.final[0].grade*.35
+         
+         
     if(tG < 70)
         {
-            row.append("td")
-            .text(function(penguin)
-            {
-                return tG
-            })
-            .attr("color","red")
-          
+             return "red";  
+        }
+    else
+        {
+            return "black";     
         }
     
     })
@@ -87,8 +88,15 @@ var penguinTable = function(penguins)
             .attr("color","red")
         } */
      
-  
+ 
+/*.sort(function(a,b)             
+{  
+    return a.value-b.value;
+})
+*/
+
 }
+
 
 
 /*
@@ -112,12 +120,12 @@ var ifGrade = function(penguin)
 
 var sortGrades = function(penguin)
 {
-    d3.select("#quiz")
+    d3.select("th")
     .on("click",function()
        {
         penguin.sort(function(a,b)
         {
-          return a.quizes - b.quizes;  
+          return a - b;  
         })
     })
 }
@@ -129,8 +137,8 @@ penguinPromise.then(
 function(penData)
     {
         //ifGrade(penData);
-        //sortGrades(penData);
-        penguinTable(penData)
+        sortGrades(penData);
+        penguinTable(penData);
     },
 function(err)
     {
