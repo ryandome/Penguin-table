@@ -2,6 +2,9 @@ td
 {
     border:solid;
     color: ; 
+    text-align: center;
+    font-size:20px;
+    border-collapse:collapse;
     
 }
 
@@ -10,4 +13,11 @@ img
     height:150px;
     width:150px;
 }
-
+th
+{
+    font-size:20px;
+}
+table
+{
+  
+}

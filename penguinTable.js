@@ -123,16 +123,17 @@ var ifGrade = function(penguin)
 
 
 
-var sortGrades = function(penguin)
+var sortGrades = function(penData)
 {
-    d3.select("th")
+    d3.selectAll("th")
     .on("click",function()
        {
-        penguin.sort(function(a,b)
+        penguinPromise.sort(function(a,b)
         {
-            if(a ==b ) { return 0; }
-            if(a < b ) { return -1; }
-            if(a > b ) { return 1; }
+            // a and b need to be properties
+            if(a.final[0].grade ==b.final[0].grade ) { return 0; }
+            if(a.final[0].grade < b.final[0].grade  ) { return -1; }
+            if(a.final[0].grade  > b.final[0].grade ) { return 1; }
         })
     })
 }
