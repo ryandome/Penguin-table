@@ -6,8 +6,9 @@
 
 var addColumn = function(row,fcn)
 {
-    row.append("td").text(fcn) 
+    row.append("td").text(fcn)
 }
+
 
 var penguinTable = function(penguins)
 {
@@ -45,7 +46,8 @@ var penguinTable = function(penguins)
     {
         return d3.mean(penguin.test, getGrade)
     })
-    addColumn(row,function(penguin)
+    row.append("td")
+    .text(function(penguin)
     {
         return penguin.final[0].grade
     })
@@ -74,6 +76,7 @@ var penguinTable = function(penguins)
     
     })
     
+   
     
         //d3.select("td")
         //.attr("id","tGrade")
@@ -118,6 +121,8 @@ var ifGrade = function(penguin)
 
 
 
+
+
 var sortGrades = function(penguin)
 {
     d3.select("th")
@@ -125,7 +130,9 @@ var sortGrades = function(penguin)
        {
         penguin.sort(function(a,b)
         {
-          return a - b;  
+            if(a ==b ) { return 0; }
+            if(a < b ) { return -1; }
+            if(a > b ) { return 1; }
         })
     })
 }
